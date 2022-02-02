@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = 4;
     let squares = []
     let score = 0 ;
+    
     // oyun boardı oluşturalım.
     function createBoard() {
         for (let i = 0; i < width * width; i++) {
@@ -26,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             checkForGameOver()
         } else generate()
     }
-    //swipe rigth
+
+    //sağa birleştirme(Hareket)
     function moveRight() {
         for (let i = 0; i < 16; i++) {
             if (i % 4 === 0) {
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    //Move Left
+//sola birleştirme(Hareket)
     function moveLeft() {
         for (let i = 0; i < 16; i++) {
             if (i % 4 === 0) {
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 let filteredRow = row.filter(num => num)
 
                 //sayı olmayan elemanları sıfır ile tamamlayalım
-                let missing = 4 - filteredRow.length //Kaç eleman sıfır ile doldurulmalı onu bulalım  
+                let missing = 4 - filteredRow.length //Kaç eleman sıfır ile doldurulmalı onu bulalım  (Her harekete yapılmalı.)
                 let zeros = Array(missing).fill(0);
                 let newRow = filteredRow.concat(zeros)
 
@@ -83,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // swipe down
+    //aşağı birleştirme(Hareket)
     function moveDown() {
         for (let i = 0; i < 4; i++) {
             let totalOne = squares[i].innerHTML
@@ -107,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // swipe up
+    //Yukarı birleştirme(Hareket)
     function moveUp() {
         for (let i = 0; i < 4; i++) {
             let totalOne = squares[i].innerHTML
@@ -130,9 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     }
+    
+    
+    
+    //Satırların birleştirilmesi
     function combineRow() {
         for (let i = 0; i < 15; i++) {
-            if (squares[i].innerHTML === squares[i + 1].innerHTML) { //bir rovda iki saıtır eşitse eşleştireiliyoruz.
+            if (squares[i].innerHTML === squares[i + 1].innerHTML) {
                 let combineTotal = parseInt(squares[i].innerHTML) + parseInt(squares[i + 1].innerHTML)
                 squares[i].innerHTML = combineTotal
                 squares[i + 1].innerHTML = 0
@@ -142,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         checkForWin()
     }
-    
+
+    //Sutünların birleşmesi
     function combineColumn() {
         for (let i = 0; i < 12; i++) {
             if (squares[i].innerHTML === squares[i + width].innerHTML) { //bir rovda iki saıtır eşitse eşleştireiliyoruz.
@@ -156,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkForWin()
     }
     
-    //keykode 
+    //keycode ile klavye yönetimlerini yapalım. 
 
     function control(e) {
         if (e.keyCode === 39) {
@@ -200,19 +207,18 @@ document.addEventListener('DOMContentLoaded', () => {
         generate()
     }
 
-    //2048 yapılması
-
+    //2048 yapılması durumunda.
     function checkForWin(){
         for(let i=0; i<squares.length; i++){
-            if(squares[i].innerHTML == 2){
+            if(squares[i].innerHTML == 2048){
                 resultDisplay.innerHTML = "<span style='color: Green'>" + "TEBRİKLER KAZANDIN ! " + "</span>";
                 document.removeEventListener('keyup',control)
             }
         }
     }
-
+    //Hareke edilememesi (0 olması) halinde.
      function checkForGameOver(){
-         let zeros =0
+         let zeros = 0
          for(let i=0; i<squares.length; i++){
                if(squares[i].innerHTML == 0){
                    zeros++

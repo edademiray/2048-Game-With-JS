@@ -1,4 +1,5 @@
- ## Very popular game 2048 developed with JavaScript, HTML, and CSS
+ ### Very popular game 2048 developed with JavaScript, HTML, and CSS
+ * Live version: [2048reactjs.netlify.app](2048reactjs.netlify.app)
 * Methods:  querySelector(),getElementById(),createElement(),Math.floor(),Math.random(),length,innerHTML,parseInt(),filter(),Array(),fill(),concat(),keyCode,addEventListener(),removeEventListener()
 
  <i> This project developed with  Ania Kubow's youtube tutorial.</i><br/>
